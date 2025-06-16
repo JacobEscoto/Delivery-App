@@ -10,12 +10,12 @@ public class Main {
         Scanner read = new Scanner(System.in);
         ArrayList<Cliente> clientes = new ArrayList();
         int opcion, accion;
-        
+
         // Menu Principal
         do {
             mainMenu();
             opcion = read.nextInt();
-            switch(opcion) {
+            switch (opcion) {
                 case 1:
                     System.out.println("------ GESTION DE CLIENTES ------");
                     System.out.println("1- Agregar cliente");
@@ -30,21 +30,48 @@ public class Main {
                         System.out.println("\n------ AGREGAR CLIENTE ------");
                         System.out.print("Nombre: ");
                         String nombreCliente = read.nextLine();
-                        String idCliente = "U-" + generarId(nombreCliente);
                         System.out.print("Edad: ");
                         int edad = read.nextInt();
                         read.nextLine();
                         System.out.print("Telefono: +504 ");
                         String telefono = read.next();
+                        boolean valido = true;
+                        for (int i = 0; i < telefono.length(); i++) {
+                            char num = telefono.charAt(i);
+                            if (num < '0' || num > '9') {
+                                valido = false;
+                                break;
+                            }
+                        }
+                        while (!valido || telefono.length() != 8) {
+                            System.out.print("Numero con formato incorrecto\nIntenta de nuevo: ");
+                            telefono = read.next();
+                        }
+                        
                         System.out.print("Correo: ");
                         String correo = read.next();
+                        while (correo.indexOf("@gmail.com") == -1 && correo.indexOf("@hotmail.com") == -1) {
+                            System.out.print("Formato invalido para correo\nIntenta de nuevo: ");
+                            correo = read.next();
+                        }
                         read.nextLine();
                         System.out.print("Direccion (Coordenadas): ");
                         String direccion = read.nextLine();
-                        clientes.add(new Cliente(nombreCliente, idCliente, edad, telefono, correo, direccion));
+                        direccion = formatoDireccion(direccion);
+                        Cliente newCliente = new Cliente(nombreCliente, edad, telefono, correo, direccion);
+                        newCliente.generarId(nombreCliente);
+                        boolean idIdenticas;
+                        do {
+                            idIdenticas = newCliente.verificarId(clientes, newCliente.getIdCliente());
+                            if (idIdenticas) {
+                                newCliente.generarId(nombreCliente);
+                            }
+
+                        } while (idIdenticas);
+                        clientes.add(newCliente);
                         System.out.println("Cliente agregado con exito!");
                     } else if (accion == 2) {
-                        
+                        // Seccion a completar
                     } else if (accion == 3) {
                         if (clientes.isEmpty()) {
                             System.out.println("Todavia no hay clientes registrados");
@@ -52,7 +79,7 @@ public class Main {
                         }
                         System.out.printf("------ BUSCAR CLIENTE ------ %n ID / Nombre del Cliente a buscar: ");
                         String searchClient = read.nextLine();
-                        
+
                         boolean encontrado = false;
                         for (int i = 0; i < clientes.size(); i++) {
                             if (clientes.get(i).getNombre().equalsIgnoreCase(searchClient) || clientes.get(i).getIdCliente().equals(searchClient)) {
@@ -64,7 +91,7 @@ public class Main {
                         if (!encontrado) {
                             System.out.printf("%n No se encontro ningun resultado en la busqueda realizada");
                         }
-                    } else if(accion == 4) {
+                    } else if (accion == 4) {
                         if (clientes.isEmpty()) {
                             System.out.println("Todavia no hay clientes registrados");
                             break;
@@ -72,6 +99,11 @@ public class Main {
                         for (int i = 0; i < clientes.size(); i++) {
                             System.out.printf("%nCliente %d%s%n", (i + 1), clientes.get(i).toString());
                         }
+                    } else if (accion == 5) {
+                        System.out.println("------ BORRAR CLIENTE ------");
+                        System.out.print("Escribe Nombre / ID del cliente a borrar: ");
+                        String borrarCliente = read.nextLine();
+                        boolean borrado = false;
                     }
                     break;
                 case 2:
@@ -114,8 +146,8 @@ public class Main {
                     System.out.println("Opcion Invalida... Intenta nuevamente");
                     break;
             }
-            
-        } while(opcion != 5);
+
+        } while (opcion != 5);
 
     }
 
@@ -128,20 +160,14 @@ public class Main {
         System.out.println("5- Salir");
         System.out.print("Ingrese una opcion: ");
     }
-
-// Metodo - generar id aleatoria
-    public static String generarId(String nombre) {
-        Random rand = new Random();
-        String caracteres = "1234567890!@_" + nombre;
-        String id = "";
-
-        int size = rand.nextInt(7, 12);
-        for (int i = 0; i < size; i++) {
-            int x = rand.nextInt(caracteres.length());
-            char c = caracteres.charAt(x);
-            id += c;
+    
+    public static String formatoDireccion(String direccion) {
+        boolean contieneEspacio = direccion.indexOf(" ") == -1;
+        if (contieneEspacio) {
+            direccion.replace(" ", "");
         }
-        return id;
+        
+        return direccion;
     }
 
 }

@@ -1,5 +1,8 @@
 package deliveryapp;
 
+import java.util.Random;
+import java.util.ArrayList;
+
 public class Cliente {
 
     // Atributos
@@ -11,9 +14,9 @@ public class Cliente {
     private String direccion;
 
     // Constructor
-    public Cliente(String nombre, String idCliente, int edad, String telefono, String correo, String direccion) {
+    public Cliente(String nombre, int edad, String telefono, String correo, String direccion) {
         this.nombre = nombre;
-        this.idCliente = idCliente;
+        this.idCliente = "";
         this.edad = edad;
         this.telefono = telefono;
         this.correo = correo;
@@ -67,6 +70,36 @@ public class Cliente {
 
     public void setDireccion(String direccion) {
         this.direccion = direccion;
+    }
+    
+    public void generarId(String nombre) {
+        Random rand = new Random();
+        
+        int size = rand.nextInt(8, 13);
+        String caracteres = "1234567890_!@";
+        String idGenerada = "";
+        
+        for (int i = 0; i < size; i++) {
+            int x = rand.nextInt(caracteres.length());
+            char c = caracteres.charAt(x);
+            idGenerada += c;        
+        }
+        this.idCliente = idGenerada;
+    }
+    
+    public boolean verificarId(ArrayList<Cliente> clientes, String idCliente) { 
+        
+        boolean idIguales = false;
+        
+        for (int i = 0; i < clientes.size(); i++) {
+            String id1 = clientes.get(i).getIdCliente();
+            
+            if(idCliente.equals(id1)) {
+                idIguales = true;
+                break;
+            }
+        }
+        return idIguales;
     }
  
     @Override
