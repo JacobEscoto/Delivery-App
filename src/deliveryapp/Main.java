@@ -104,6 +104,19 @@ public class Main {
                         System.out.print("Escribe Nombre / ID del cliente a borrar: ");
                         String borrarCliente = read.nextLine();
                         boolean borrado = false;
+                        
+                        for (int i = 0; i < clientes.size(); i++) {
+                            if(clientes.get(i).getNombre().equalsIgnoreCase(borrarCliente) || clientes.get(i).getIdCliente().equals(borrarCliente)) {
+                                clientes.remove(i);
+                                borrado = true;
+                                System.out.println("Cliente borrado exitosamente!");
+                                break;
+                            }
+                        }
+                        
+                        if (!borrado) {
+                            System.out.println("No se encontro un cliente con el Nombre / ID proporcionado");
+                        }
                     }
                     break;
                 case 2:
