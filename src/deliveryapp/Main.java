@@ -24,8 +24,55 @@ public class Main {
                     System.out.println("4- Lista de clientes");
                     System.out.println("5- Borrar cliente");
                     System.out.print("Opcion a realizar: ");
-                    opcion = read.nextInt();
+                    accion = read.nextInt();
                     read.nextLine();
+                    if (accion == 1) {
+                        System.out.println("\n------ AGREGAR CLIENTE ------");
+                        System.out.print("Nombre: ");
+                        String nombreCliente = read.nextLine();
+                        String idCliente = "U-" + generarId(nombreCliente);
+                        System.out.print("Edad: ");
+                        int edad = read.nextInt();
+                        read.nextLine();
+                        System.out.print("Telefono: +504 ");
+                        String telefono = read.next();
+                        System.out.print("Correo: ");
+                        String correo = read.next();
+                        read.nextLine();
+                        System.out.print("Direccion (Coordenadas): ");
+                        String direccion = read.nextLine();
+                        clientes.add(new Cliente(nombreCliente, idCliente, edad, telefono, correo, direccion));
+                        System.out.println("Cliente agregado con exito!");
+                    } else if (accion == 2) {
+                        
+                    } else if (accion == 3) {
+                        if (clientes.isEmpty()) {
+                            System.out.println("Todavia no hay clientes registrados");
+                            break;
+                        }
+                        System.out.printf("------ BUSCAR CLIENTE ------ %n ID / Nombre del Cliente a buscar: ");
+                        String searchClient = read.nextLine();
+                        
+                        boolean encontrado = false;
+                        for (int i = 0; i < clientes.size(); i++) {
+                            if (clientes.get(i).getNombre().equalsIgnoreCase(searchClient) || clientes.get(i).getIdCliente().equals(searchClient)) {
+                                encontrado = true;
+                                System.out.printf("%nCliente %d%s%n", (i + 1), clientes.get(i).toString());
+                                break;
+                            }
+                        }
+                        if (!encontrado) {
+                            System.out.printf("%n No se encontro ningun resultado en la busqueda realizada");
+                        }
+                    } else if(accion == 4) {
+                        if (clientes.isEmpty()) {
+                            System.out.println("Todavia no hay clientes registrados");
+                            break;
+                        }
+                        for (int i = 0; i < clientes.size(); i++) {
+                            System.out.printf("%nCliente %d%s%n", (i + 1), clientes.get(i).toString());
+                        }
+                    }
                     break;
                 case 2:
                     System.out.println("------ GESTION DE REPARTIDORES ------");
@@ -35,7 +82,7 @@ public class Main {
                     System.out.println("4- Lista de repartidores");
                     System.out.println("5- Borrar repartidor");
                     System.out.print("Opcion a realizar: ");
-                    opcion = read.nextInt();
+                    accion = read.nextInt();
                     read.nextLine();
                     break;
                 case 3:
@@ -46,7 +93,7 @@ public class Main {
                     System.out.println("4- Lista de paquetes");
                     System.out.println("5- Borrar paquete");
                     System.out.print("Opcion a realizar: ");
-                    opcion = read.nextInt();
+                    accion = read.nextInt();
                     read.nextLine();
                     break;
                 case 4:
@@ -57,7 +104,7 @@ public class Main {
                     System.out.println("4- Lista de pedidos");
                     System.out.println("5- Cancelar pedido");
                     System.out.print("Opcion a realizar: ");
-                    opcion = read.nextInt();
+                    accion = read.nextInt();
                     read.nextLine();
                     break;
                 case 5:
