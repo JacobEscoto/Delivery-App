@@ -10,10 +10,22 @@
 - Lista de clientes  
 - Borrar cliente  
 
-**2.** <ins>**Gestión de Paquetes:**</ins>  
+**2.** <ins>**Gestión de Repartidores:**</ins>  
 - Agregar repartidor  
+- Actualizar datos de repartidor
 - Buscar repartidor  
-- Lista de repartidores  
+- Lista de repartidores
+- Borrar repartidor 
+
+**3.**<ins>**Gestion de Paquetes**</ins>
+- Agregar paquete
+
+### Validaciones
+
+- Validar que `ArrayList` no esten vacios
+- Validacion de posiciones validas dentro de `ArrayList`
+- Validaciones basicas por cada objeto
+
 
 ---
 
@@ -24,12 +36,14 @@
 3. `ArrayList` para manejo de objetos  
 4. Clases de objetos (`Cliente`, `Paquete`, `Repartidor`, `Pedido`)  
 5. Bucle `do-while`  
-6. Condicionales `if` y `switch-case`  
-7. Ciclos para recorrer `ArrayLists`  
-8. Métodos estáticos  
-9. Getters y Setters para cada objeto  
+6. Condicionales `if` y `switch-case`
+7. Datos primivitos y no primitivos  
+8. Ciclos para recorrer `ArrayLists`  
+9. Métodos estáticos  
+10. Metodos que retornan `String`, `int`, `double`, `boolean`, `double` y `Objetos`
+11. Getters y Setters para cada objeto  
 
 ---
 
 > [!NOTE]  
-> Proyecto todavía en desarrollo.
+> Este proyecto todavía esta en desarrollo.

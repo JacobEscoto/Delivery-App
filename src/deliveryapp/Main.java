@@ -10,6 +10,8 @@ public class Main {
         Scanner read = new Scanner(System.in);
         ArrayList<Cliente> clientes = new ArrayList();
         ArrayList<Repartidor> repartidores = new ArrayList();
+        ArrayList<Paquete> paquetes = new ArrayList();
+        ArrayList<Pedido> pedidos = new ArrayList();
         int opcion, accion;
 
         // Menu Principal
@@ -19,7 +21,7 @@ public class Main {
             switch (opcion) {
                 // Submenu de Clientes
                 case 1:
-                    System.out.println("------ GESTION DE CLIENTES ------");
+                    System.out.println("\n------ GESTION DE CLIENTES ------");
                     System.out.println("1- Agregar cliente");
                     System.out.println("2- Actualizar cliente");
                     System.out.println("3- Buscar cliente");
@@ -35,6 +37,10 @@ public class Main {
                         String idCliente = generarId(nombreCliente);
                         System.out.print("Edad: ");
                         int edad = read.nextInt();
+                        while (edad < 18) {
+                            System.out.print("Edad Invalida...\nIntenta de nuevo: ");
+                            edad = read.nextInt();
+                        }
                         read.nextLine();
                         System.out.print("Telefono: +504 ");
                         String telefono = read.next();
@@ -50,7 +56,7 @@ public class Main {
                             System.out.print("Numero con formato incorrecto\nIntenta de nuevo: ");
                             telefono = read.next();
                         }
-                        
+
                         System.out.print("Correo: ");
                         String correo = read.next();
                         while (correo.indexOf("@gmail.com") == -1 && correo.indexOf("@hotmail.com") == -1) {
@@ -80,20 +86,9 @@ public class Main {
                             System.out.println("Todavia no hay clientes registrados");
                             break;
                         }
-                        System.out.printf("------ BUSCAR CLIENTE ------ %n ID / Nombre del Cliente a buscar: ");
+                        System.out.printf("%n------ BUSCAR CLIENTE ------ %n ID / Nombre del Cliente a buscar: ");
                         String searchClient = read.nextLine();
-
-                        boolean encontrado = false;
-                        for (int i = 0; i < clientes.size(); i++) {
-                            if (clientes.get(i).getNombre().equalsIgnoreCase(searchClient) || clientes.get(i).getIdCliente().equals(searchClient)) {
-                                encontrado = true;
-                                System.out.printf("%nCliente %d%s%n", (i + 1), clientes.get(i).toString());
-                                break;
-                            }
-                        }
-                        if (!encontrado) {
-                            System.out.printf("%n No se encontro ningun resultado en la busqueda realizada");
-                        }
+                        Cliente buscarCliente = searchCliente(clientes, searchClient, true);
                     } else if (accion == 4) {
                         if (clientes.isEmpty()) {
                             System.out.println("Todavia no hay clientes registrados");
@@ -103,28 +98,17 @@ public class Main {
                             System.out.printf("%nCliente %d%s%n", (i + 1), clientes.get(i).toString());
                         }
                     } else if (accion == 5) {
-                        System.out.println("------ BORRAR CLIENTE ------");
+                        System.out.println("\n------ BORRAR CLIENTE ------");
                         System.out.print("Escribe Nombre / ID del cliente a borrar: ");
                         String borrarCliente = read.nextLine();
-                        boolean borrado = false;
-                        
-                        for (int i = 0; i < clientes.size(); i++) {
-                            if(clientes.get(i).getNombre().equalsIgnoreCase(borrarCliente) || clientes.get(i).getIdCliente().equals(borrarCliente)) {
-                                clientes.remove(i);
-                                borrado = true;
-                                System.out.println("Cliente borrado exitosamente!");
-                                break;
-                            }
-                        }
-                        
-                        if (!borrado) {
-                            System.out.println("No se encontro un cliente con el Nombre / ID proporcionado");
-                        }
+                        Cliente deleteClient = searchCliente(clientes, borrarCliente, false);
+                        clientes.remove(deleteClient);
+                        System.out.println("Cliente borrado exitosamente!");
                     }
                     break;
                 // Submenu de Repartidores
                 case 2:
-                    System.out.println("------ GESTION DE REPARTIDORES ------");
+                    System.out.println("\n------ GESTION DE REPARTIDORES ------");
                     System.out.println("1- Agregar repartidor");
                     System.out.println("2- Actualizar repartidor");
                     System.out.println("3- Buscar repartidor");
@@ -143,27 +127,54 @@ public class Main {
                         Repartidor repartidor = new Repartidor(nombreRepartidor, idRepartidor, vehiculo);
                         repartidores.add(repartidor);
                     } else if (accion == 2) {
-                          
+                        for (int i = 0; i < repartidores.size(); i++) {
+                            System.out.printf("%d. %s%n%n", (i + 1), repartidores.get(i).toString());
+                        }
+                        System.out.print("Ingrese posicion del Repartidor: ");
+                        int pos = read.nextInt();
+                        while (pos < 1 || pos > repartidores.size()) {
+                            System.out.print("Posicion Invalida...\nIntenta de nuevo: ");
+                            pos = read.nextInt();
+                        }
+                        pos -= 1;
+                        repartidores.get(pos).actualizarDatos();
                     } else if (accion == 3) {
-                        System.out.print("------ BUSCAR CLIENTE ------\nIngrese Nombre / ID del repartidor: ");
+                        System.out.print("------ BUSCAR REPARTIDOR ------\nIngrese Nombre / ID del repartidor: ");
                         String buscarRepartidor = read.nextLine();
                         boolean encontrado = false;
                         for (int i = 0; i < repartidores.size(); i++) {
-                            if(repartidores.get(i).getNombre().equalsIgnoreCase(buscarRepartidor) || repartidores.get(i).getIdRepartidor().equals(buscarRepartidor)) {
+                            if (repartidores.get(i).getNombre().equalsIgnoreCase(buscarRepartidor) || repartidores.get(i).getIdRepartidor().equals(buscarRepartidor)) {
                                 encontrado = true;
-                                System.out.println("\nRepartidor " + (i + 1)+".\n" + repartidores.get(i).toString());
+                                System.out.println("\nRepartidor " + (i + 1) + ".\n" + repartidores.get(i).toString());
                                 break;
                             }
                         }
-                        
-                        if(!encontrado) {
+                        if (!encontrado) {
                             System.out.println("No se encontro ningun repartidor con su Nombre / ID proporcionado");
                         }
-                        
+
                     } else if (accion == 4) {
-                        System.out.println("\n------ LISTA DE REPARTIDORES ------");
+                        System.out.println("\n------ REPARTIDORES ------");
                         for (int i = 0; i < repartidores.size(); i++) {
-                            System.out.printf("%nRepartidor %d%n%n%s%n",(i+1), repartidores.get(i).toString());
+                            System.out.printf("%nRepartidor %d%n%s%n", (i + 1), repartidores.get(i).toString());
+                        }
+                    } else if (accion == 5) {
+                        System.out.println("\n------ BORRAR REPARTIDOR ------");
+                        System.out.print("Escribe Nombre / ID del repartidor a borrar: ");
+                        String borrarRepartidor = read.nextLine();
+                        boolean borrado = false;
+
+                        for (int i = 0; i < repartidores.size(); i++) {
+                            if (repartidores.get(i).getNombre().equalsIgnoreCase(borrarRepartidor) || repartidores.get(i).getIdRepartidor().equals(borrarRepartidor)) {
+                                repartidores.remove(i);
+                                borrado = true;
+                                System.out.println("Repartidor borrado exitosamente!");
+                                break;
+                            }
+                        }
+
+                        if (!borrado) {
+                            System.out.println("No se encontro un repartidor con el Nombre / ID proporcionado");
                         }
                     }
                     break;
@@ -177,6 +188,28 @@ public class Main {
                     System.out.print("Opcion a realizar: ");
                     accion = read.nextInt();
                     read.nextLine();
+
+                    if (accion == 1) {
+                        String idPaquete = generarId("");
+                        System.out.print("Categoria: ");
+                        String categoria = read.next();
+                        System.out.print("Peso (kg): ");
+                        double peso = read.nextDouble();
+                        read.nextLine();
+                        System.out.print("Descripcion: ");
+                        String descripcion = read.nextLine();
+                        System.out.print("Deseas incluir seguro? [s / n]: ");
+                        char resp = read.next().charAt(0);
+                        boolean incluirSeguro = (resp == 's' || resp == 'S');
+                        System.out.print("Cliente asociado al paquete (Escribir nombre o ID): ");
+                        String verificarCliente = read.nextLine();
+                        Cliente clienteAsociado = searchCliente(clientes, verificarCliente, false);
+                        Paquete paquete = new Paquete(idPaquete, categoria, peso, descripcion, incluirSeguro, clienteAsociado);
+                        paquetes.add(paquete);
+                        System.out.println("Paquete agregado exitosamente!");
+                    } else if (accion == 2) {
+                        
+                    }
                     break;
                 case 4:
                     System.out.println("------ GESTION DE PEDIDOS ------");
@@ -188,6 +221,7 @@ public class Main {
                     System.out.print("Opcion a realizar: ");
                     accion = read.nextInt();
                     read.nextLine();
+
                     break;
                 case 5:
                     System.out.println("Saliendo del Delivery...");
@@ -202,7 +236,7 @@ public class Main {
     }
 
     public static void mainMenu() {
-        System.out.println("------ DELIVERY APP ------");
+        System.out.println("\n------ DELIVERY APP ------");
         System.out.println("1- Gestion de Clientes");
         System.out.println("2- Gestion de Repartidores");
         System.out.println("3- Gestion de Paquetes");
@@ -210,29 +244,51 @@ public class Main {
         System.out.println("5- Salir");
         System.out.print("Ingrese una opcion: ");
     }
-    
+
     public static String formatoDireccion(String direccion) {
         boolean noContieneEspacio = direccion.indexOf(" ") == -1;
         if (!noContieneEspacio) {
             direccion = direccion.replace(" ", "");
         }
-        
+
         return direccion;
     }
-    
+
     public static String generarId(String nombre) {
         Random rand = new Random();
         String caracteres = "1234567890!@_=" + nombre;
         String id = "";
         int size = rand.nextInt(6, 11);
-        
+
         for (int i = 0; i < size; i++) {
             int x = rand.nextInt(caracteres.length());
             char c = caracteres.charAt(x);
             id += c;
         }
-        
+
         return id;
+    }
+
+    public static Cliente searchCliente(ArrayList<Cliente> clientes, String entrada, boolean mostrar) {
+        Scanner read = new Scanner(System.in);
+        boolean encontrado = false;
+        Cliente cliente = null;
+        for (int i = 0; i < clientes.size(); i++) {
+            if (clientes.get(i).getNombre().equalsIgnoreCase(entrada) || clientes.get(i).getIdCliente().equals(entrada)) {
+                cliente = clientes.get(i);
+                encontrado = true;
+                if (mostrar) {
+                    System.out.print(cliente);
+                }
+                break;
+            }
+        }
+        
+        if (!encontrado) {
+            System.out.println("No se encontro ningun cliente con ID / Nombre proporcionado");
+            
+        }
+        return cliente;
     }
 
 }

@@ -1,5 +1,6 @@
 package deliveryapp;
 
+import java.util.Scanner;
 import java.util.Random;
 
 public class Repartidor {
@@ -7,15 +8,15 @@ public class Repartidor {
     // Atributos
     private String nombre;
     private String idRepartidor;
-    private String transporte;
+    private String vehiculo;
     private int velocidad;
     
     // Constructor
-    public Repartidor (String nombre, String idRepartidor, String transporte) {
+    public Repartidor (String nombre, String idRepartidor, String vehiculo) {
         this.nombre = nombre;
         this.idRepartidor = "R-" + idRepartidor;
-        this.transporte = transporte;
-        this.velocidad = velocidadPromedio(transporte);
+        this.vehiculo = vehiculo;
+        this.velocidad = velocidadPromedio(vehiculo);
     }
     
     // Getters y Setters
@@ -35,12 +36,12 @@ public class Repartidor {
         this.idRepartidor = idRepartidor;
     }
     
-    public String getTransporte() {
-        return transporte;
+    public String getVehiculo() {
+        return vehiculo;
     }
     
-    public void setTransporte(String transporte) {
-        this.transporte = transporte;
+    public void setVehiculo(String vehiculo) {
+        this.vehiculo = vehiculo;
     }
     
     public int getVelocidad() {
@@ -66,12 +67,48 @@ public class Repartidor {
         return velocidad;
     }
     
+    public void actualizarDatos() {
+        Scanner read = new Scanner(System.in);
+        System.out.println("1- Actualizar Nombre\n2- Actualizar Vehiculo");
+        System.out.print("Ingrese su opcion: ");
+        int accion = read.nextInt();
+        read.nextLine();
+        boolean actualizado = false;
+        
+        switch(accion) {
+            case 1:
+                System.out.print("Nuevo nombre: ");
+                String nuevoNombre = read.nextLine();
+                if (!nuevoNombre.equalsIgnoreCase(this.nombre)) {
+                    this.nombre = nuevoNombre;
+                    actualizado = true;
+                    System.out.println("Repartidor actualizado con exito!");
+                }
+                break;
+            case 2:
+                System.out.print("Nuevo vehiculo: ");
+                String nuevoVehiculo = read.next();
+                if (!nuevoVehiculo.equalsIgnoreCase(this.vehiculo)){
+                    this.vehiculo = nuevoVehiculo;
+                    actualizado = true;
+                    System.out.println("Repartidor actualizado con exito!");
+                }
+                break;
+            default:
+                System.out.println("Opcion invalida...");
+                break;
+        }
+        
+        if (!actualizado) {
+            System.out.println("No se actualizaron los datos del repartidor debido a que has escrito el mismo dato ya establecido");
+        }
+    }
+    
     @Override
     public String toString() {
         return "Nombre: " + nombre +
                 "\nID: " + idRepartidor +
-                "\nVehiculo: " + transporte +
-                "\nVelocidad (km/h): " + velocidad;
+                "\nVehiculo: " + vehiculo;
     }
     
 }
