@@ -22,4 +22,45 @@ public class Pedido {
     public String getIdPedido() {
         return idPedido;
     }
+    
+    public void setIdPedido(String idPedido) {
+        this.idPedido = idPedido;
+    }
+    
+    public Cliente getCliente() {
+        return cliente;
+    }
+    
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+    
+    public Paquete getPaquete() {
+        return paquete;
+    }
+    
+    public void setPaquete(Paquete paquete) {
+        this.paquete = paquete;
+    }
+    
+    public Repartidor getRepartidor() {
+        return repartidor;
+    }
+    
+    public void setRepartidor(Repartidor repartidor) {
+        this.repartidor = repartidor;
+    }
+    
+    public String getEstado() {
+        return estado;
+    }
+    
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+    
+    // Metodos
+    public void entregarPedido() {
+        this.estado = "En camino";
+    }
 }

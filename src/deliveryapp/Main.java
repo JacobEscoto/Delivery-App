@@ -9,6 +9,7 @@ public class Main {
     public static void main(String[] args) {
         Scanner read = new Scanner(System.in);
         ArrayList<Cliente> clientes = new ArrayList();
+        ArrayList<Repartidor> repartidores = new ArrayList();
         int opcion, accion;
 
         // Menu Principal
@@ -16,6 +17,7 @@ public class Main {
             mainMenu();
             opcion = read.nextInt();
             switch (opcion) {
+                // Submenu de Clientes
                 case 1:
                     System.out.println("------ GESTION DE CLIENTES ------");
                     System.out.println("1- Agregar cliente");
@@ -30,6 +32,7 @@ public class Main {
                         System.out.println("\n------ AGREGAR CLIENTE ------");
                         System.out.print("Nombre: ");
                         String nombreCliente = read.nextLine();
+                        String idCliente = generarId(nombreCliente);
                         System.out.print("Edad: ");
                         int edad = read.nextInt();
                         read.nextLine();
@@ -58,13 +61,13 @@ public class Main {
                         System.out.print("Direccion (Coordenadas): ");
                         String direccion = read.nextLine();
                         direccion = formatoDireccion(direccion);
-                        Cliente newCliente = new Cliente(nombreCliente, edad, telefono, correo, direccion);
-                        newCliente.generarId(nombreCliente);
+                        Cliente newCliente = new Cliente(nombreCliente, idCliente, edad, telefono, correo, direccion);
                         boolean idIdenticas;
                         do {
                             idIdenticas = newCliente.verificarId(clientes, newCliente.getIdCliente());
                             if (idIdenticas) {
-                                newCliente.generarId(nombreCliente);
+                                idCliente = generarId(nombreCliente);
+                                newCliente.setIdCliente(idCliente);
                             }
 
                         } while (idIdenticas);
@@ -119,6 +122,7 @@ public class Main {
                         }
                     }
                     break;
+                // Submenu de Repartidores
                 case 2:
                     System.out.println("------ GESTION DE REPARTIDORES ------");
                     System.out.println("1- Agregar repartidor");
@@ -129,6 +133,39 @@ public class Main {
                     System.out.print("Opcion a realizar: ");
                     accion = read.nextInt();
                     read.nextLine();
+                    if (accion == 1) {
+                        System.out.println("------ AGREGAR REPARTIDOR ------");
+                        System.out.print("Nombre: ");
+                        String nombreRepartidor = read.nextLine();
+                        String idRepartidor = generarId(nombreRepartidor);
+                        System.out.print("Vehiculo: ");
+                        String vehiculo = read.next();
+                        Repartidor repartidor = new Repartidor(nombreRepartidor, idRepartidor, vehiculo);
+                        repartidores.add(repartidor);
+                    } else if (accion == 2) {
+                          
+                    } else if (accion == 3) {
+                        System.out.print("------ BUSCAR CLIENTE ------\nIngrese Nombre / ID del repartidor: ");
+                        String buscarRepartidor = read.nextLine();
+                        boolean encontrado = false;
+                        for (int i = 0; i < repartidores.size(); i++) {
+                            if(repartidores.get(i).getNombre().equalsIgnoreCase(buscarRepartidor) || repartidores.get(i).getIdRepartidor().equals(buscarRepartidor)) {
+                                encontrado = true;
+                                System.out.println("\nRepartidor " + (i + 1)+".\n" + repartidores.get(i).toString());
+                                break;
+                            }
+                        }
+                        
+                        if(!encontrado) {
+                            System.out.println("No se encontro ningun repartidor con su Nombre / ID proporcionado");
+                        }
+                        
+                    } else if (accion == 4) {
+                        System.out.println("\n------ LISTA DE REPARTIDORES ------");
+                        for (int i = 0; i < repartidores.size(); i++) {
+                            System.out.printf("%nRepartidor %d%n%n%s%n",(i+1), repartidores.get(i).toString());
+                        }
+                    }
                     break;
                 case 3:
                     System.out.println("------ GESTION DE PAQUETES ------");
@@ -175,12 +212,27 @@ public class Main {
     }
     
     public static String formatoDireccion(String direccion) {
-        boolean contieneEspacio = direccion.indexOf(" ") == -1;
-        if (contieneEspacio) {
-            direccion.replace(" ", "");
+        boolean noContieneEspacio = direccion.indexOf(" ") == -1;
+        if (!noContieneEspacio) {
+            direccion = direccion.replace(" ", "");
         }
         
         return direccion;
+    }
+    
+    public static String generarId(String nombre) {
+        Random rand = new Random();
+        String caracteres = "1234567890!@_=" + nombre;
+        String id = "";
+        int size = rand.nextInt(6, 11);
+        
+        for (int i = 0; i < size; i++) {
+            int x = rand.nextInt(caracteres.length());
+            char c = caracteres.charAt(x);
+            id += c;
+        }
+        
+        return id;
     }
 
 }
