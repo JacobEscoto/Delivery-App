@@ -19,12 +19,25 @@
 
 **3.**<ins>**Gestion de Paquetes**</ins>
 - Agregar paquete
+- Buscar paquete
+- Lista de paquetes
+- Borrar Paquete
+
+**4.**<ins>**Gestion de Pedidos**</ins>
+- Agregar pedido
+- Enviar pedido
+- Buscar pedido
+- Lista de pedidos
+- Cancelar pedido
 
 ### Validaciones
 
 - Validar que `ArrayList` no esten vacios
 - Validacion de posiciones validas dentro de `ArrayList`
 - Validaciones basicas por cada objeto
+
+### Calculos
+- Calcular costo de paquete en base a su peso, y si se debe incluir seguro
 
 
 ---

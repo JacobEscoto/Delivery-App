@@ -80,7 +80,12 @@ public class Paquete {
     }
 
     private double calcularCosto(double peso, boolean incluirSeguro) {
-        return 0.0;
+        if(incluirSeguro) {
+            return (2 * peso) + ((peso * 0.15) + (peso * 0.50));
+        } else {
+            
+        }
+        return (2 * peso) + (peso * 0.15);
     }
 
     @Override
@@ -91,6 +96,6 @@ public class Paquete {
                 + "\nDescripcion: " + descripcion
                 + "\nIncluir seguro: " + incluirSeguro
                 + "\nCliente: " + cliente.getNombre() + " - " + cliente.getIdCliente()
-                + "\nCosto Paquete: " + costoTotal;
+                + "\nCosto Paquete: Lps. " +costoTotal;
     }
 }

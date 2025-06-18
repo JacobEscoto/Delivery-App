@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main() {
         Scanner read = new Scanner(System.in);
         ArrayList<Cliente> clientes = new ArrayList();
         ArrayList<Repartidor> repartidores = new ArrayList();
@@ -178,13 +178,13 @@ public class Main {
                         }
                     }
                     break;
+                // Gestion de Paquetes
                 case 3:
                     System.out.println("------ GESTION DE PAQUETES ------");
                     System.out.println("1- Agregar paquete");
-                    System.out.println("2- Actualizar paquete");
-                    System.out.println("3- Buscar paquete por ID");
-                    System.out.println("4- Lista de paquetes");
-                    System.out.println("5- Borrar paquete");
+                    System.out.println("2- Buscar paquete por ID");
+                    System.out.println("3- Lista de paquetes");
+                    System.out.println("4- Borrar paquete");
                     System.out.print("Opcion a realizar: ");
                     accion = read.nextInt();
                     read.nextLine();
@@ -200,6 +200,7 @@ public class Main {
                         String descripcion = read.nextLine();
                         System.out.print("Deseas incluir seguro? [s / n]: ");
                         char resp = read.next().charAt(0);
+                        read.nextLine();
                         boolean incluirSeguro = (resp == 's' || resp == 'S');
                         System.out.print("Cliente asociado al paquete (Escribir nombre o ID): ");
                         String verificarCliente = read.nextLine();
@@ -208,7 +209,30 @@ public class Main {
                         paquetes.add(paquete);
                         System.out.println("Paquete agregado exitosamente!");
                     } else if (accion == 2) {
-                        
+                        System.out.println("------ BUSCAR PAQUETE ------");
+                        System.out.print("Escriba ID: ");
+                        String buscarPaquete = read.nextLine();
+
+                        boolean encontrado = false;
+                        for (int i = 0; i < paquetes.size(); i++) {
+                            if (paquetes.get(i).getIdPaquete().equalsIgnoreCase(buscarPaquete)) {
+                                Paquete paqueteFound = paquetes.get(i);
+                                System.out.println(paqueteFound);
+                                encontrado = true;
+                                break;
+                            }
+                        }
+
+                        if (!encontrado) {
+                            System.out.println("Paquete no encontrado!");
+                        }
+                    } else if (accion == 4) {
+                        System.out.println("\n------ PAQUETES EN STOCK ------");
+                        int listadoNum = 1;
+                        for (Paquete paquete : paquetes) {
+                            System.out.printf("%n%d. %s", listadoNum, paquete);
+                            listadoNum++;
+                        }
                     }
                     break;
                 case 4:
@@ -221,6 +245,29 @@ public class Main {
                     System.out.print("Opcion a realizar: ");
                     accion = read.nextInt();
                     read.nextLine();
+                    if (accion == 1) {
+
+                    } else if (accion == 2) {
+                        
+                    } else if (accion == 5) {
+                        System.out.println("------ CANCELACION DE PEDIDO ------");
+                        System.out.print("ID de Pedido a Cancelar: ");
+                        String cancelarPedido = read.next();
+                        boolean cancelado = false;
+                        for (Pedido pedido : pedidos) {
+                            if(pedido.getIdPedido().equals(cancelarPedido)) {
+                                pedido.setEstado("cancelado");
+                                cancelado = true;
+                                System.out.println("Pedido cancelado con exito");
+                                break;
+                            }
+                        }
+                        
+                        if (!cancelado) {
+                            System.out.println("No se puedo cancelar el pedido...");
+                            break;
+                        }
+                    }
 
                     break;
                 case 5:
@@ -269,24 +316,27 @@ public class Main {
         return id;
     }
 
-    public static Cliente searchCliente(ArrayList<Cliente> clientes, String entrada, boolean mostrar) {
+    public static Cliente searchCliente(ArrayList<Cliente> clientes, String entrada, boolean mostrar) {   
         Scanner read = new Scanner(System.in);
         boolean encontrado = false;
         Cliente cliente = null;
-        for (int i = 0; i < clientes.size(); i++) {
-            if (clientes.get(i).getNombre().equalsIgnoreCase(entrada) || clientes.get(i).getIdCliente().equals(entrada)) {
-                cliente = clientes.get(i);
-                encontrado = true;
-                if (mostrar) {
-                    System.out.print(cliente);
-                }
-                break;
-            }
-        }
         
-        if (!encontrado) {
-            System.out.println("No se encontro ningun cliente con ID / Nombre proporcionado");
+        while (!encontrado) {
+            for (int i = 0; i < clientes.size(); i++) {
+                if (clientes.get(i).getNombre().equalsIgnoreCase(entrada) || clientes.get(i).getIdCliente().equals(entrada)) {
+                    cliente = clientes.get(i);
+                    encontrado = true;
+                    if (mostrar) {
+                        System.out.print(cliente);
+                    }
+                    break;
+                }
+            }
             
+            if (!encontrado) {
+                System.out.print("No se encontro ningun cliente con Nombre/ID Proporcionado...\nIntenta de nuevo: ");
+                entrada = read.nextLine().toLowerCase();
+            }
         }
         return cliente;
     }
