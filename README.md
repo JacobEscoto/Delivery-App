@@ -1,40 +1,40 @@
-# Sistema de Entrega a Domicilio - **Delivr**
+# Delivr
+- Un sistema de entregas a domicilio desarrollado en Java
 
 ## Funcionalidades
 
 ### Menú Principal y Submenús con distintas opciones:
 
-**1.** <ins>**Gestión de Clientes:**</ins>  
+<ins>**1. Gestión de Clientes:**</ins>  
 - Agregar cliente  
 - Buscar cliente  
 - Lista de clientes  
 - Borrar cliente  
 
-**2.** <ins>**Gestión de Repartidores:**</ins>  
+<ins>**2. Gestión de Repartidores:**</ins>  
 - Agregar repartidor  
 - Actualizar datos de repartidor
 - Buscar repartidor  
 - Lista de repartidores
 - Borrar repartidor 
 
-**3.**<ins>**Gestion de Paquetes**</ins>
+<ins>**3. Gestion de Paquetes**</ins>
 - Agregar paquete
 - Buscar paquete
 - Lista de paquetes
 - Borrar Paquete
 
-**4.**<ins>**Gestion de Pedidos**</ins>
+<ins>**4. Gestion de Pedidos**</ins>
 - Agregar pedido
 - Enviar pedido
 - Buscar pedido
 - Lista de pedidos
 - Cancelar pedido
 
-### Validaciones
-
-- Validar que `ArrayList` no esten vacios
-- Validacion de posiciones validas dentro de `ArrayList`
-- Validaciones basicas por cada objeto
+### Validaciones Implementadas
+- `ArrayList` no esten vacios
+- Metodos para validar datos ingresados por el usuario
+- Uso de `JOptionPane` para mostrar dialogos de la accion realizada  
 
 ### Calculos
 - Calcular costo de paquete en base a su peso, y si se debe incluir seguro
@@ -54,9 +54,12 @@
 8. Ciclos para recorrer `ArrayLists`  
 9. Métodos estáticos  
 10. Metodos que retornan `String`, `int`, `double`, `boolean`, `double` y `Objetos`
-11. Getters y Setters para cada objeto  
+11. Getters y Setters para cada objeto 
+12. Implementacion a `GUI` (Graphic User Interfase) 
 
 ---
 
 > [!NOTE]  
 > Este proyecto todavía esta en desarrollo.
+
+

@@ -17,6 +17,8 @@ public class Dashboard extends javax.swing.JFrame {
     public static ArrayList<Cliente> clientes = new ArrayList();
     public static ArrayList<Repartidor> repartidores = new ArrayList();
     public static ArrayList<Paquete> paquetes = new ArrayList();
+    public static ArrayList<Pedido> pedidos = new ArrayList();
+    public static char[][] mapa = new char[15][15];
 
     /**
      * Creates new form Dashboard
@@ -24,6 +26,7 @@ public class Dashboard extends javax.swing.JFrame {
     public Dashboard() {
         initComponents();
         SetImageLabel(iconDelivr, "src/Images/deliveryIcon.png");
+        SetImageLabel(tipoIconTxt, "src/Images/delivrTextIcon.png");
         this.setLocationRelativeTo(this);
         clientesBtn.setContentAreaFilled(false);
         clientesBtn.setBorderPainted(false);
@@ -57,6 +60,7 @@ public class Dashboard extends javax.swing.JFrame {
         repartidorBtn = new javax.swing.JButton();
         paquetesBtn = new javax.swing.JButton();
         pedidosBtn = new javax.swing.JButton();
+        tipoIconTxt = new javax.swing.JLabel();
         content = new javax.swing.JPanel();
         iconDelivr = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -112,18 +116,24 @@ public class Dashboard extends javax.swing.JFrame {
         lateralMenuLayout.setHorizontalGroup(
             lateralMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(lateralMenuLayout.createSequentialGroup()
-                .addGap(22, 22, 22)
                 .addGroup(lateralMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pedidosBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(paquetesBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(repartidorBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(clientesBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(lateralMenuLayout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addGroup(lateralMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(pedidosBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(paquetesBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(repartidorBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(clientesBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(lateralMenuLayout.createSequentialGroup()
+                        .addGap(41, 41, 41)
+                        .addComponent(tipoIconTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(32, Short.MAX_VALUE))
         );
         lateralMenuLayout.setVerticalGroup(
             lateralMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(lateralMenuLayout.createSequentialGroup()
-                .addGap(79, 79, 79)
+                .addComponent(tipoIconTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(clientesBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(38, 38, 38)
                 .addComponent(repartidorBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -131,7 +141,7 @@ public class Dashboard extends javax.swing.JFrame {
                 .addComponent(paquetesBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33)
                 .addComponent(pedidosBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(159, Short.MAX_VALUE))
         );
 
         content.setBackground(new java.awt.Color(19, 28, 38));
@@ -185,7 +195,7 @@ public class Dashboard extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void clientesBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clientesBtnActionPerformed
-        clientScreen screenC = new clientScreen();
+        ClientScreen screenC = new ClientScreen();
         screenC.setSize(766, 488);
         screenC.setLocation(0, 0);
         
@@ -196,7 +206,14 @@ public class Dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_clientesBtnActionPerformed
 
     private void repartidorBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_repartidorBtnActionPerformed
-        // TODO add your handling code here:
+        ScreenRepartidor screenR = new ScreenRepartidor();
+        screenR.setSize(766, 488);
+        screenR.setLocation(0, 0);
+        
+        content.removeAll();
+        content.add(screenR, BorderLayout.CENTER);
+        content.revalidate();
+        content.repaint();
     }//GEN-LAST:event_repartidorBtnActionPerformed
 
     private void paquetesBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paquetesBtnActionPerformed
@@ -264,5 +281,6 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JButton paquetesBtn;
     private javax.swing.JButton pedidosBtn;
     private javax.swing.JButton repartidorBtn;
+    private javax.swing.JLabel tipoIconTxt;
     // End of variables declaration//GEN-END:variables
 }

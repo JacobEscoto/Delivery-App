@@ -50,13 +50,21 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
+              <Group type="102" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="pedidosBtn" min="-2" pref="137" max="-2" attributes="0"/>
-                      <Component id="paquetesBtn" min="-2" pref="137" max="-2" attributes="0"/>
-                      <Component id="repartidorBtn" min="-2" pref="137" max="-2" attributes="0"/>
-                      <Component id="clientesBtn" min="-2" pref="137" max="-2" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="pedidosBtn" min="-2" pref="137" max="-2" attributes="0"/>
+                              <Component id="paquetesBtn" min="-2" pref="137" max="-2" attributes="0"/>
+                              <Component id="repartidorBtn" min="-2" pref="137" max="-2" attributes="0"/>
+                              <Component id="clientesBtn" min="-2" pref="137" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
+                          <Component id="tipoIconTxt" min="-2" pref="103" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
                   <EmptySpace pref="32" max="32767" attributes="0"/>
               </Group>
@@ -65,7 +73,8 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="79" max="-2" attributes="0"/>
+                  <Component id="tipoIconTxt" min="-2" pref="73" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Component id="clientesBtn" min="-2" pref="37" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
                   <Component id="repartidorBtn" min="-2" pref="37" max="-2" attributes="0"/>
@@ -73,7 +82,7 @@
                   <Component id="paquetesBtn" min="-2" pref="37" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
                   <Component id="pedidosBtn" min="-2" pref="37" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="159" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -146,6 +155,8 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="pedidosBtnActionPerformed"/>
           </Events>
+        </Component>
+        <Component class="javax.swing.JLabel" name="tipoIconTxt">
         </Component>
       </SubComponents>
     </Container>

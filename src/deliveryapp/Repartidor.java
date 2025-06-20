@@ -106,9 +106,7 @@ public class Repartidor {
     
     @Override
     public String toString() {
-        return "Nombre: " + nombre +
-                "\nID: " + idRepartidor +
-                "\nVehiculo: " + vehiculo;
+        return "Nombre: " + nombre + " | ID: " + idRepartidor + " | Vehiculo: " + vehiculo;
     }
     
 }

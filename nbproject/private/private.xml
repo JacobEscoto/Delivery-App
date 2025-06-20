@@ -3,11 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/djaco/Downloads/Delivr/src/interfaz/ClientesDashboard.java</file>
-            <file>file:/C:/Users/djaco/Downloads/Delivr/src/deliveryapp/Cliente.java</file>
-            <file>file:/C:/Users/djaco/Downloads/Delivr/src/deliveryapp/Metodos.java</file>
-            <file>file:/C:/Users/djaco/Downloads/Delivr/src/deliveryapp/Main.java</file>
-            <file>file:/C:/Users/djaco/Downloads/Delivr/src/interfaz/Dashboard.java</file>
+            <file>file:/C:/Users/djaco/Downloads/Delivr/src/deliveryapp/Repartidor.java</file>
+            <file>file:/C:/Users/djaco/Downloads/Delivr/README.md</file>
+            <file>file:/C:/Users/djaco/Downloads/Delivr/src/deliveryapp/Dashboard.java</file>
+            <file>file:/C:/Users/djaco/Downloads/Delivr/src/deliveryapp/ClientScreen.java</file>
+            <file>file:/C:/Users/djaco/Downloads/Delivr/src/deliveryapp/RepartidorScreen.java</file>
         </group>
     </open-files>
 </project-private>

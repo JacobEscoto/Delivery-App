@@ -10,11 +10,11 @@ import javax.swing.JOptionPane;
  *
  * @author djaco
  */
-public class clientScreen extends javax.swing.JPanel {
+public class ClientScreen extends javax.swing.JPanel {
 
     Metodos verify = new Metodos();
 
-    public clientScreen() {
+    public ClientScreen() {
         initComponents();
         nameLbl.setVisible(false);
         nameField.setVisible(false);
@@ -250,6 +250,20 @@ public class clientScreen extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void searchClientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchClientActionPerformed
+        nameLbl.setVisible(false);
+        nameField.setVisible(false);
+        telLbl.setVisible(false);
+        telField.setVisible(false);
+        correoLbl.setVisible(false);
+        correoField.setVisible(false);
+        edadLbl.setVisible(false);
+        edadField.setVisible(false);
+        dirLbl.setVisible(false);
+        dirField.setVisible(false);
+        registerBtn.setVisible(false);
+        jScrollPane1.setVisible(false);
+        listaClientes.setVisible(false);
+        totalLbl.setVisible(false);
         if (Dashboard.clientes.isEmpty()) {
             JOptionPane.showMessageDialog(this, "TODAVIA NO HAY CLIENTES REGISTRADOS", "ADVERTENCIA", JOptionPane.WARNING_MESSAGE);
         } else {
@@ -258,11 +272,10 @@ public class clientScreen extends javax.swing.JPanel {
                 return;
             }
             String resultado = "";
-            boolean encontrado = false;
 
-            for (Cliente cliente1 : Dashboard.clientes) {
-                if (cliente1.getIdCliente().equals(search) || cliente1.getNombre().equalsIgnoreCase(search)) {
-                    resultado += cliente1.toString() + "\n";
+            for (Cliente cliente : Dashboard.clientes) {
+                if (cliente.getIdCliente().equals(search) || cliente.getNombre().equalsIgnoreCase(search)) {
+                    resultado += cliente + "\n";
                 }
 
             }
@@ -270,7 +283,7 @@ public class clientScreen extends javax.swing.JPanel {
             if (resultado.equals("")) {
                 JOptionPane.showMessageDialog(this, "No se encontraron resultados de tu busqueda", "ADVERTENCIA", JOptionPane.WARNING_MESSAGE);
             } else {
-                JOptionPane.showMessageDialog(this, "Resultados encontrados! \n" + resultado, "RESULTADO", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Resultados encontrados! \n" + resultado, "ENCONTRADO", JOptionPane.INFORMATION_MESSAGE);
             }
         }
 
@@ -337,7 +350,7 @@ public class clientScreen extends javax.swing.JPanel {
         boolean valido = verify.verificacionDatos(entrada, verificarEdad, telefono, correo, direccion);
 
         if (!valido) {
-            JOptionPane.showMessageDialog(this, "NO SE AGREGO NINGUN CLIENTE!", "ERROR", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "No se agrego ningun cliente!\nDatos Invalidos o Vacios", "ERROR", JOptionPane.ERROR_MESSAGE);
         } else {
             String nombre = entrada.substring(0 , entrada.indexOf(" "));
             String apellido = entrada.substring(entrada.indexOf(" ")+1);
@@ -345,7 +358,7 @@ public class clientScreen extends javax.swing.JPanel {
             String idClient = verify.generarId(nombre);
             Cliente newClient = new Cliente(nombre, apellido, idClient, edad, telefono, correo, direccion);
             Dashboard.clientes.add(newClient);
-            JOptionPane.showMessageDialog(this, "SE AGREGO EL CLIENTE CON EXITO!", "EXITO", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "El cliente fue agregado con exito!", "EXITO", JOptionPane.INFORMATION_MESSAGE);
         }
 
         nameField.setText(null);
