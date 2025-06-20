@@ -1,12 +1,12 @@
 package deliveryapp;
 
-import java.util.Random;
 import java.util.ArrayList;
 
 public class Cliente {
 
     // Atributos
     private String nombre;
+    private String apellido;
     private String idCliente;
     private int edad;
     private String telefono;
@@ -14,8 +14,9 @@ public class Cliente {
     private String direccion;
 
     // Constructor
-    public Cliente(String nombre, String idCliente, int edad, String telefono, String correo, String direccion) {
+    public Cliente(String nombre, String apellido, String idCliente, int edad, String telefono, String correo, String direccion) {
         this.nombre = nombre;
+        this.apellido = apellido;
         this.idCliente = "C-" + idCliente;
         this.edad = edad;
         this.telefono = telefono;
@@ -31,6 +32,14 @@ public class Cliente {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+    
+    public String getApellido() {
+        return apellido;
+    }
+    
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
 
     public String getIdCliente() {
         return idCliente;
@@ -45,7 +54,11 @@ public class Cliente {
     }
 
     public void setEdad(int edad) {
-        this.edad = edad;
+        if (edad < 18) {
+            System.out.println("Edad invalida...");
+        } else {
+            this.edad = edad;
+        }
     }
 
     public String getTelefono() {
@@ -89,11 +102,6 @@ public class Cliente {
 
     @Override
     public String toString() {
-        return "\nNombre: " + nombre
-                + "\nID: " + idCliente
-                + "\nEdad: " + edad
-                + "\nTelefono: +504 " + telefono
-                + "\nCorreo: " + correo
-                + "\nDireccion: " + direccion;
+        return "Nombre: " + nombre + " " + apellido +" | ID: " + idCliente + " | Edad: " + edad + " | Correo: " + correo + " | Tel: " + telefono;
     }
 }

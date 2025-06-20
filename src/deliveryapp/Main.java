@@ -3,12 +3,14 @@ package deliveryapp;
 import java.util.Scanner;
 import java.util.Random;
 import java.util.ArrayList;
+import javax.swing.JFrame;
 
 public class Main {
-
+    public static ArrayList<Cliente> clientes = new ArrayList();
     public static void main() {
+        
         Scanner read = new Scanner(System.in);
-        ArrayList<Cliente> clientes = new ArrayList();
+        
         ArrayList<Repartidor> repartidores = new ArrayList();
         ArrayList<Paquete> paquetes = new ArrayList();
         ArrayList<Pedido> pedidos = new ArrayList();
@@ -34,7 +36,7 @@ public class Main {
                         System.out.println("\n------ AGREGAR CLIENTE ------");
                         System.out.print("Nombre: ");
                         String nombreCliente = read.nextLine();
-                        String idCliente = generarId(nombreCliente);
+                        String idCliente = "";
                         System.out.print("Edad: ");
                         int edad = read.nextInt();
                         while (edad < 18) {
@@ -67,12 +69,12 @@ public class Main {
                         System.out.print("Direccion (Coordenadas): ");
                         String direccion = read.nextLine();
                         direccion = formatoDireccion(direccion);
-                        Cliente newCliente = new Cliente(nombreCliente, idCliente, edad, telefono, correo, direccion);
+                        /*Cliente newCliente = new Cliente(nombreCliente, idCliente, edad, telefono, correo, direccion);
                         boolean idIdenticas;
                         do {
                             idIdenticas = newCliente.verificarId(clientes, newCliente.getIdCliente());
                             if (idIdenticas) {
-                                idCliente = generarId(nombreCliente);
+                                idCliente = "";
                                 newCliente.setIdCliente(idCliente);
                             }
 
@@ -85,7 +87,7 @@ public class Main {
                         if (clientes.isEmpty()) {
                             System.out.println("Todavia no hay clientes registrados");
                             break;
-                        }
+                        }*/
                         System.out.printf("%n------ BUSCAR CLIENTE ------ %n ID / Nombre del Cliente a buscar: ");
                         String searchClient = read.nextLine();
                         Cliente buscarCliente = searchCliente(clientes, searchClient, true);
@@ -121,7 +123,7 @@ public class Main {
                         System.out.println("------ AGREGAR REPARTIDOR ------");
                         System.out.print("Nombre: ");
                         String nombreRepartidor = read.nextLine();
-                        String idRepartidor = generarId(nombreRepartidor);
+                        String idRepartidor = "";
                         System.out.print("Vehiculo: ");
                         String vehiculo = read.next();
                         Repartidor repartidor = new Repartidor(nombreRepartidor, idRepartidor, vehiculo);
@@ -190,7 +192,7 @@ public class Main {
                     read.nextLine();
 
                     if (accion == 1) {
-                        String idPaquete = generarId("");
+                        String idPaquete = "";
                         System.out.print("Categoria: ");
                         String categoria = read.next();
                         System.out.print("Peso (kg): ");
@@ -256,7 +258,7 @@ public class Main {
                         boolean cancelado = false;
                         for (Pedido pedido : pedidos) {
                             if(pedido.getIdPedido().equals(cancelarPedido)) {
-                                pedido.setEstado("cancelado");
+                                pedido.setEstado("Cancelado");
                                 cancelado = true;
                                 System.out.println("Pedido cancelado con exito");
                                 break;
@@ -301,21 +303,6 @@ public class Main {
         return direccion;
     }
 
-    public static String generarId(String nombre) {
-        Random rand = new Random();
-        String caracteres = "1234567890!@_=" + nombre;
-        String id = "";
-        int size = rand.nextInt(6, 11);
-
-        for (int i = 0; i < size; i++) {
-            int x = rand.nextInt(caracteres.length());
-            char c = caracteres.charAt(x);
-            id += c;
-        }
-
-        return id;
-    }
-
     public static Cliente searchCliente(ArrayList<Cliente> clientes, String entrada, boolean mostrar) {   
         Scanner read = new Scanner(System.in);
         boolean encontrado = false;
@@ -340,5 +327,4 @@ public class Main {
         }
         return cliente;
     }
-
 }
